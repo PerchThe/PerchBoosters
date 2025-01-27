@@ -1,0 +1,11 @@
+name: PerchBoosters
+version: '${version}'
+main: dev.ev1dent.perchboosters.BoosterPlugin
+api-version: '1.21'
+depends:
+  - LuckPerms
+commands:
+  boosterplugin:
+    description: "Booster Plugin"
+    permission: "boosterplugin.use"
+    usage: "/<command> [reset | reload] <player>"

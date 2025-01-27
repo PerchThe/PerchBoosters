@@ -1,0 +1,3 @@
+BoosterGroup: "booster"
+Key_All_Command: 'tellraw @p {"text":"Key all command","color":"#FF00FF"}'
+Key_All_Message: "<#FFFF00>This is a key all message!!"

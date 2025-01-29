@@ -7,14 +7,23 @@ import net.luckperms.api.LuckPerms;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.time.LocalDate;
+
 public final class BoosterPlugin extends JavaPlugin {
 
     public LuckPerms luckPerms;
     ConfigManager configManager = new ConfigManager();
+    public NamespacedKey existingBooster = new NamespacedKey(this, "existingBooster");
+    public NamespacedKey monthlyKey = new NamespacedKey(this, monthlyKeyGen());
+
     public String boosterGroup;
-    public String keyAllCMD;
+    public int dayOfMonth;
+
     public String keyAllMessage;
-    public NamespacedKey key = new NamespacedKey(this, "existingBooster");
+    public String keyAllCMD;
+
+    public String keyPlayerMessage;
+    public String keyPlayerCMD;
 
     @Override
     public void onEnable() {
@@ -35,5 +44,11 @@ public final class BoosterPlugin extends JavaPlugin {
 
     public LuckPerms getLuckPerms() {
         return luckPerms;
+    }
+
+    public String monthlyKeyGen(){
+        String month = LocalDate.now().getMonth().toString();
+        String year = String.valueOf(LocalDate.now().getYear());
+        return month + "-" + year;
     }
 }

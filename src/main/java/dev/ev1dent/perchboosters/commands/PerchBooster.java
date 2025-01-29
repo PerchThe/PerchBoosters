@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataContainer;
 import org.jetbrains.annotations.NotNull;
 
 public class PerchBooster implements CommandExecutor {
@@ -33,8 +34,23 @@ public class PerchBooster implements CommandExecutor {
                     sender.sendMessage(Utils.formatMM("<red>Player not found"));
                     return true;
                 }
-                player.getPersistentDataContainer().remove(boosterPlugin().key);
-                sender.sendMessage(Utils.formatMM("<green>Player has been reset"));
+
+                switch (args[2].toLowerCase()){
+                    case "global" -> {
+                        PersistentDataContainer container = player.getPersistentDataContainer();
+                        container.remove(boosterPlugin().existingBooster);
+                        sender.sendMessage(Utils.formatMM("<green>Global Flag Removed."));
+                    }
+                    case "personal" -> {
+                        PersistentDataContainer container = player.getPersistentDataContainer();
+                        container.remove(boosterPlugin().monthlyKey);
+                        sender.sendMessage(Utils.formatMM("<green>Personal Flag Removed."));
+                    }
+                    default -> {
+                        sender.sendMessage(Utils.formatMM("<red>Unknown Flag: " + args[2]));
+                    }
+                }
+                
             }
             default -> {
                 sender.sendMessage(Utils.formatMM("<red>Unknown command '" + args[0] + "'"));

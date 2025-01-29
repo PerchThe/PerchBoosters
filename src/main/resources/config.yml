@@ -1,3 +1,20 @@
-BoosterGroup: "booster"
-Key_All_Command: 'tellraw @p {"text":"Key all command","color":"#FF00FF"}'
-Key_All_Message: "<#FFFF00>This is a key all message!!"
+# Define the group you want to check for on the 1st of every month
+booster-group: "booster"
+
+# What day of the month do you want the player to be required to log in to get their personal reward?
+day-of-month: 1
+
+# Information to be used on the 1st login after boosting
+# key-all-message - the message to be broadcast on the server - can be empty, set to ""  (use {PLAYER} for a player argument)
+#  - MiniMessage Supported
+# key-all-command - the console command to be used (use {PLAYER} for a player argument)
+key-all-message: "<#FFFF00>This is a key all message!!"
+key-all-command: 'tellraw @p {"text":"Key all command","color":"#FF00FF"}'
+
+# Information to be used on the 1st of every month, on login
+# key-player-message - the message to be sent to the player - can be empty, set to ""  (use {PLAYER} for a player argument)
+#  - MiniMessage Supported
+# key-player-command - the console command to be used on the player (use {PLAYER} for a player argument)
+key-player-message: "<#FFFF00>Thanks for boosting the discord server! Enjoy a tag crate key!"
+key-player-command: "emsg {PLAYER} There actually wasn't a key yet.. sorry."
+

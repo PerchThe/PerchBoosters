@@ -13,8 +13,14 @@ public class ConfigManager {
         boosterPlugin().reloadConfig();
         FileConfiguration config = boosterPlugin().getConfig();
         boosterPlugin().saveDefaultConfig();
-        boosterPlugin().boosterGroup = config.getString("BoosterGroup");
-        boosterPlugin().keyAllCMD = (String) config.get("Key_All_Command");
-        boosterPlugin().keyAllMessage = config.getString("Key_All_Message");
+
+        boosterPlugin().boosterGroup = config.getString("booster-group");
+        boosterPlugin().dayOfMonth = config.getInt("day-of-month");
+
+        boosterPlugin().keyAllMessage = config.getString("key-all-message");
+        boosterPlugin().keyAllCMD = (String) config.get("key-all-command");
+
+        boosterPlugin().keyPlayerMessage = config.getString("key-player-message");
+        boosterPlugin().keyPlayerCMD = (String) config.get("key-player-command");
     }
 }

@@ -14,5 +14,4 @@ first-boost-commands:
 returning-boost-commands:
   - "tell {PLAYER} returning boosts"
 
-
 DEBUG: false

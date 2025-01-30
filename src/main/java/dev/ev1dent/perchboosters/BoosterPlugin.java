@@ -3,7 +3,6 @@ package dev.ev1dent.perchboosters;
 import dev.ev1dent.perchboosters.commands.PerchBooster;
 import dev.ev1dent.perchboosters.listeners.PlayerJoinListener;
 import dev.ev1dent.perchboosters.utilities.ConfigManager;
-import dev.ev1dent.perchboosters.utilities.Utils;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;

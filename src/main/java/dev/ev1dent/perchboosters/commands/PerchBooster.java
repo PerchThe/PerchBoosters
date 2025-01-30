@@ -21,6 +21,9 @@ public class PerchBooster implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        if(args.length == 0) {
+            return true;
+        }
         switch (args[0].toLowerCase()){
             case "reload" -> {
                 configManager.loadConfig();

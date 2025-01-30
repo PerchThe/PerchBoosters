@@ -17,10 +17,7 @@ public class ConfigManager {
         boosterPlugin().boosterGroup = config.getString("booster-group");
         boosterPlugin().dayOfMonth = config.getInt("day-of-month");
 
-        boosterPlugin().keyAllMessage = config.getString("key-all-message");
-        boosterPlugin().keyAllCMD = (String) config.get("key-all-command");
-
-        boosterPlugin().keyPlayerMessage = config.getString("key-player-message");
-        boosterPlugin().keyPlayerCMD = (String) config.get("key-player-command");
+        boosterPlugin().firstBoostCommands = config.getStringList("first-boost-commands");
+        boosterPlugin().returningBoostCommands = config.getStringList("returning-boost-commands");
     }
 }

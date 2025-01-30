@@ -8,6 +8,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public final class BoosterPlugin extends JavaPlugin {
 
@@ -19,11 +20,8 @@ public final class BoosterPlugin extends JavaPlugin {
     public String boosterGroup;
     public int dayOfMonth;
 
-    public String keyAllMessage;
-    public String keyAllCMD;
-
-    public String keyPlayerMessage;
-    public String keyPlayerCMD;
+    public List<String> firstBoostCommands;
+    public List<String> returningBoostCommands;
 
     @Override
     public void onEnable() {

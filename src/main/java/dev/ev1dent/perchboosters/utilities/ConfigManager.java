@@ -19,5 +19,7 @@ public class ConfigManager {
 
         boosterPlugin().firstBoostCommands = config.getStringList("first-boost-commands");
         boosterPlugin().returningBoostCommands = config.getStringList("returning-boost-commands");
+
+        boosterPlugin().debugEnabled = config.getBoolean("DEBUG");
     }
 }

@@ -2,7 +2,7 @@
 booster-group: "booster"
 
 # What day of the month do you want the player to be required to log in to get their personal reward?
-day-of-month: 30
+day-of-month: 1
 
 # commands to be executed on the first boost - (use {PLAYER} for a player argument)
 # if your commands contain '' or "", use the inverse (for "" use ' around command)
@@ -13,3 +13,6 @@ first-boost-commands:
 # if your commands contain '' or "", use the inverse (for "" use ' around command)
 returning-boost-commands:
   - "tell {PLAYER} returning boosts"
+
+
+DEBUG: false

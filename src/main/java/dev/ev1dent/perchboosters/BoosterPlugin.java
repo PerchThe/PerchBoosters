@@ -3,6 +3,7 @@ package dev.ev1dent.perchboosters;
 import dev.ev1dent.perchboosters.commands.PerchBooster;
 import dev.ev1dent.perchboosters.listeners.PlayerJoinListener;
 import dev.ev1dent.perchboosters.utilities.ConfigManager;
+import dev.ev1dent.perchboosters.utilities.Utils;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,6 +15,7 @@ public final class BoosterPlugin extends JavaPlugin {
 
     public LuckPerms luckPerms;
     ConfigManager configManager = new ConfigManager();
+
     public NamespacedKey existingBooster = new NamespacedKey(this, "existingBooster");
     public NamespacedKey monthlyKey = new NamespacedKey(this, monthlyKeyGen());
 
@@ -22,6 +24,8 @@ public final class BoosterPlugin extends JavaPlugin {
 
     public List<String> firstBoostCommands;
     public List<String> returningBoostCommands;
+
+    public boolean debugEnabled;
 
     @Override
     public void onEnable() {

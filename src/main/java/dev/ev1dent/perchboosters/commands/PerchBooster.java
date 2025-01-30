@@ -36,15 +36,15 @@ public class PerchBooster implements CommandExecutor {
                 }
 
                 switch (args[2].toLowerCase()){
-                    case "global" -> {
+                    case "month" -> {
                         PersistentDataContainer container = player.getPersistentDataContainer();
                         container.remove(boosterPlugin().existingBooster);
-                        sender.sendMessage(Utils.formatMM("<green>Global Flag Removed."));
+                        sender.sendMessage(Utils.formatMM("<green>Monthly Claim has been removed"));
                     }
-                    case "personal" -> {
+                    case "first" -> {
                         PersistentDataContainer container = player.getPersistentDataContainer();
                         container.remove(boosterPlugin().monthlyKey);
-                        sender.sendMessage(Utils.formatMM("<green>Personal Flag Removed."));
+                        sender.sendMessage(Utils.formatMM("<green>First Claim has been removed"));
                     }
                     default -> {
                         sender.sendMessage(Utils.formatMM("<red>Unknown Flag: " + args[2]));

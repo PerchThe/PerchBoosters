@@ -1,6 +1,7 @@
 package dev.ev1dent.perchboosters;
 
 import dev.ev1dent.perchboosters.commands.PerchBooster;
+import dev.ev1dent.perchboosters.commands.tabcompletion.PerchBoosterTabCompleter;
 import dev.ev1dent.perchboosters.listeners.PlayerJoinListener;
 import dev.ev1dent.perchboosters.utilities.ConfigManager;
 import net.luckperms.api.LuckPerms;
@@ -36,6 +37,7 @@ public final class BoosterPlugin extends JavaPlugin {
 
     private void registerCommands(){
         this.getCommand("perchboosters").setExecutor(new PerchBooster());
+        this.getCommand("perchboosters").setTabCompleter(new PerchBoosterTabCompleter());
     }
 
     private void registerEvents(){

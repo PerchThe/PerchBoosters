@@ -14,7 +14,6 @@ public class PlayerJoinListener implements Listener {
 
     Utils Utils = new Utils();
 
-
     private BoosterPlugin boosterPlugin() {
         return BoosterPlugin.getPlugin(BoosterPlugin.class);
     }

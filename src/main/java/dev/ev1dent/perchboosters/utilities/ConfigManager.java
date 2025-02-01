@@ -3,6 +3,8 @@ package dev.ev1dent.perchboosters.utilities;
 import dev.ev1dent.perchboosters.BoosterPlugin;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.io.File;
+
 public class ConfigManager {
 
     private BoosterPlugin boosterPlugin() {
@@ -12,7 +14,7 @@ public class ConfigManager {
     public void loadConfig() {
         boosterPlugin().reloadConfig();
         FileConfiguration config = boosterPlugin().getConfig();
-        boosterPlugin().saveDefaultConfig();
+        copyDefaults();
 
         boosterPlugin().boosterGroup = config.getString("booster-group");
 
@@ -20,5 +22,13 @@ public class ConfigManager {
         boosterPlugin().returningBoostCommands = config.getStringList("returning-boost-commands");
 
         boosterPlugin().debugEnabled = config.getBoolean("DEBUG");
+    }
+
+    private void copyDefaults(){
+        final File configFile = new File(boosterPlugin().getDataFolder(), "config.yml");
+        if (!configFile.exists()) {
+            boosterPlugin().getLogger().info("Config Doesn't exist. Creating default config file.");
+            boosterPlugin().saveResource("config.yml", false);
+        }
     }
 }

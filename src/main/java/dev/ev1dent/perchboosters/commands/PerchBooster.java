@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 public class PerchBooster implements CommandExecutor {
 
     ConfigManager configManager = new ConfigManager();
+    Utils Utils = new Utils();
 
     private BoosterPlugin boosterPlugin() {
         return BoosterPlugin.getPlugin(BoosterPlugin.class);
@@ -48,6 +49,12 @@ public class PerchBooster implements CommandExecutor {
                         PersistentDataContainer container = player.getPersistentDataContainer();
                         container.remove(boosterPlugin().monthlyKey);
                         sender.sendMessage(Utils.formatMM("<green>First Claim has been removed"));
+                    }
+                    case "all" ->{
+                        PersistentDataContainer container = player.getPersistentDataContainer();
+                        container.remove(boosterPlugin().existingBooster);
+                        container.remove(boosterPlugin().monthlyKey);
+                        sender.sendMessage(Utils.formatMM("<green>All Reward claims have been reset"));
                     }
                     default -> {
                         sender.sendMessage(Utils.formatMM("<red>Unknown Flag: " + args[2]));

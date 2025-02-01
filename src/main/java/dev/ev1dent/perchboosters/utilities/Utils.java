@@ -6,7 +6,6 @@ import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Utils {
 
@@ -15,7 +14,7 @@ public class Utils {
     }
 
 
-    public static Component formatMM(String s){
+    public Component formatMM(String s){
         return MiniMessage.miniMessage().deserialize(s).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
     }
 

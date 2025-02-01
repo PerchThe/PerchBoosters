@@ -42,7 +42,7 @@ public class PlayerJoinListener implements Listener {
 
         for (String command : boosterPlugin().firstBoostCommands){
             Utils.getLogger("First Boost Commands: " + command.replace("{PLAYER}", player.getName()));
-            boosterPlugin().getServer().dispatchCommand(boosterPlugin().getServer().getConsoleSender(), command.replace("{PLAYER}", player.getName()));
+            handleCommands(command, player);
         }
     }
 
@@ -57,8 +57,16 @@ public class PlayerJoinListener implements Listener {
 
         for (String command : boosterPlugin().returningBoostCommands){
             Utils.getLogger("Returning Boost Commands: " + command.replace("{PLAYER}", player.getName()));
-            boosterPlugin().getServer().dispatchCommand(boosterPlugin().getServer().getConsoleSender(), command.replace("{PLAYER}", player.getName()));
+            handleCommands(command, player);
         }
+    }
+
+    private void handleCommands(String command, Player player) {
+        if(command.startsWith("[message]")) {
+            player.sendMessage(Utils.formatMM(command.replace("[message] ", "")));
+            return;
+        }
+        boosterPlugin().getServer().dispatchCommand(boosterPlugin().getServer().getConsoleSender(), command.replace("{PLAYER}", player.getName()));
     }
 }
 

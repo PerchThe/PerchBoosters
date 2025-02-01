@@ -35,7 +35,7 @@ public final class BoosterPlugin extends JavaPlugin {
     }
 
     private void registerCommands(){
-        this.getCommand("boosterplugin").setExecutor(new PerchBooster());
+        this.getCommand("perchboosters").setExecutor(new PerchBooster());
     }
 
     private void registerEvents(){

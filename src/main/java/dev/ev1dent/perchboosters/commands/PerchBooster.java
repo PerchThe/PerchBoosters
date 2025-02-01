@@ -55,9 +55,6 @@ public class PerchBooster implements CommandExecutor {
                 }
                 
             }
-            default -> {
-                sender.sendMessage(Utils.formatMM("<red>Unknown command '" + args[0] + "'"));
-            }
         }
         return true;
     }

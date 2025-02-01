@@ -15,7 +15,6 @@ public class ConfigManager {
         boosterPlugin().saveDefaultConfig();
 
         boosterPlugin().boosterGroup = config.getString("booster-group");
-        boosterPlugin().dayOfMonth = config.getInt("day-of-month");
 
         boosterPlugin().firstBoostCommands = config.getStringList("first-boost-commands");
         boosterPlugin().returningBoostCommands = config.getStringList("returning-boost-commands");

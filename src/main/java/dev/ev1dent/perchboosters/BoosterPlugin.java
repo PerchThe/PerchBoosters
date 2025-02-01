@@ -19,7 +19,6 @@ public final class BoosterPlugin extends JavaPlugin {
     public NamespacedKey monthlyKey = new NamespacedKey(this, monthlyKeyGen());
 
     public String boosterGroup;
-    public int dayOfMonth;
 
     public List<String> firstBoostCommands;
     public List<String> returningBoostCommands;

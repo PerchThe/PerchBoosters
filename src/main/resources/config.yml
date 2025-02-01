@@ -1,9 +1,6 @@
 # Define the group you want to check for on the 1st of every month
 booster-group: "booster"
 
-# What day of the month do you want the player to be required to log in to get their personal reward?
-day-of-month: 1
-
 # commands to be executed on the first boost - (use {PLAYER} for a player argument)
 # if your commands contain '' or "", use the inverse (for "" use ' around command)
 first-boost-commands:

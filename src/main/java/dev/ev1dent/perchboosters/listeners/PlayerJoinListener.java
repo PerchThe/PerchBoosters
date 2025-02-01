@@ -10,8 +10,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.Calendar;
-
 public class PlayerJoinListener implements Listener {
 
     Utils Utils = new Utils();
@@ -29,18 +27,12 @@ public class PlayerJoinListener implements Listener {
         Utils.getLogger("Is Booster: " + LPHook.isBooster(player, boosterPlugin().boosterGroup));
         if(!LPHook.isBooster(player, boosterPlugin().boosterGroup)) return;
         PersistentDataContainer container = player.getPersistentDataContainer();
-        processBoost(container, player);
+        processFirstBoost(container, player);
+        processReturningBooster(container, player);
 
     }
 
-    private void processBoost(PersistentDataContainer container, Player player) {
-        // this is processed any day, so it gets priority so it can't be cancelled.
-        processReturningBooster(container, player);
-
-        Calendar calendar = Calendar.getInstance();
-        Utils.getLogger("Day of Month: " + calendar.get(Calendar.DAY_OF_MONTH));
-        Utils.getLogger("Day of Month Expected: " + boosterPlugin().dayOfMonth);
-        if(!(calendar.get(Calendar.DAY_OF_MONTH) == boosterPlugin().dayOfMonth)) return;
+    private void processFirstBoost(PersistentDataContainer container, Player player) {
 
         // Already received reward for current month, returning
         Utils.getLogger("Already Claimed for Month: " + container.has(boosterPlugin().monthlyKey, PersistentDataType.STRING));
@@ -56,8 +48,12 @@ public class PlayerJoinListener implements Listener {
     }
 
     private void processReturningBooster(PersistentDataContainer container, Player player) {
+
+        // Already received reward for current month, returning
         Utils.getLogger("Existing Booster: " + container.has(boosterPlugin().existingBooster, PersistentDataType.STRING));
         if(container.has(boosterPlugin().existingBooster, PersistentDataType.STRING)) return;
+
+        // if they didnt, they did now.
         container.set(boosterPlugin().existingBooster, PersistentDataType.STRING, "true");
 
         for (String command : boosterPlugin().returningBoostCommands){

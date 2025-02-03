@@ -4,11 +4,13 @@ import dev.ev1dent.perchboosters.BoosterPlugin;
 import dev.ev1dent.perchboosters.utilities.ConfigManager;
 import dev.ev1dent.perchboosters.utilities.Utils;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 public class PerchBooster implements CommandExecutor {
@@ -38,7 +40,6 @@ public class PerchBooster implements CommandExecutor {
                     sender.sendMessage(Utils.formatMM("<red>Player not found"));
                     return true;
                 }
-
                 switch (args[2].toLowerCase()){
                     case "month" -> {
                         PersistentDataContainer container = player.getPersistentDataContainer();
@@ -61,6 +62,37 @@ public class PerchBooster implements CommandExecutor {
                     }
                 }
                 
+            }
+            case "check" -> {
+                if(args.length < 3) return false;
+                Player player = Bukkit.getPlayer(args[1]);
+                if(player == null) {
+                    sender.sendMessage(Utils.formatMM("<red>Player not found"));
+                    return true;
+                }
+                PersistentDataContainer container = player.getPersistentDataContainer();
+                switch (args[2].toLowerCase()){
+                    case "monthly" -> {
+                        if(args.length < 5) return false;
+                        String month = args[3], year = args[4], key = month + "-" + year;
+                        if(container.has(new NamespacedKey(boosterPlugin(), key.toLowerCase()), PersistentDataType.STRING)) {
+                            sender.sendMessage(Utils.formatMM("<yellow> " + player.getName() + " <green>has received their rewards for " + month + " " + year));
+                            return true;
+                        }
+                        else {
+                            sender.sendMessage(Utils.formatMM("<yellow> " + player.getName() + " <green>has <red>not</red> received their rewards for " + month + " " + year));
+                        }
+
+                    }
+                    case "first" -> {
+                        if(container.has(boosterPlugin().existingBooster, PersistentDataType.STRING)) {
+                            sender.sendMessage(Utils.formatMM("<yellow> " + player.getName() + " <green>Is an existing booster"));
+                            return true;
+                        } else sender.sendMessage(Utils.formatMM("<yellow> " + player.getName() + " <green>Is <red>not</red> an existing booster"));
+                    }
+                }
+
+
             }
         }
         return true;

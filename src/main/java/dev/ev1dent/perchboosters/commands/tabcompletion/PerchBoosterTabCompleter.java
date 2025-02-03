@@ -6,10 +6,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class PerchBoosterTabCompleter implements TabCompleter {
 
@@ -19,20 +16,37 @@ public class PerchBoosterTabCompleter implements TabCompleter {
 
         switch (args.length) {
             case 1 ->{
-                StringUtil.copyPartialMatches(args[args.length - 1], Arrays.asList("reload", "reset"), completions);
+                StringUtil.copyPartialMatches(args[args.length - 1], Arrays.asList("reload", "reset", "check"), completions);
                 Collections.sort(completions);
                 return completions;
             }
             case 2 ->{
-                if(args[0].equalsIgnoreCase("reload")) return Collections.singletonList("");
-                else if(args[0].equalsIgnoreCase("reset")) return null;
+                if(args[0].equalsIgnoreCase("reload")) return  Collections.emptyList();
+                else return null;
             }
             case 3 ->{
                 if(args[0].equalsIgnoreCase("reload")) return null;
                 StringUtil.copyPartialMatches(args[args.length - 1], Arrays.asList("first", "monthly", "all"), completions);
                 Collections.sort(completions);
                 return completions;
-
+            }
+            case 4 -> {
+                if(args[0].equalsIgnoreCase("check") && args[2].equalsIgnoreCase("monthly")){
+                    String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+                    StringUtil.copyPartialMatches(args[args.length - 1], Arrays.asList(months), completions);
+                    Collections.sort(completions);
+                    return completions;
+                }
+                return Collections.emptyList();
+            }
+            case 5 -> {
+                if(args[0].equalsIgnoreCase("check") && args[2].equalsIgnoreCase("monthly")){
+                    String[] months = {"2024", "2025", "2026", "2027", "2028", "2029" };
+                    StringUtil.copyPartialMatches(args[args.length - 1], Arrays.asList(months), completions);
+                    Collections.sort(completions);
+                    return completions;
+                }
+                return Collections.emptyList();
             }
         }
         return null;

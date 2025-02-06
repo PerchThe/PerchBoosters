@@ -34,7 +34,7 @@ public class PerchBooster implements CommandExecutor {
                 return true;
             }
             case "reset" -> {
-                if(args.length < 2) return true;
+                if(args.length < 2) return false;
                 Player player = Bukkit.getPlayer(args[1]);
                 if(player == null) {
                     sender.sendMessage(Utils.formatMM(boosterPlugin().messagesPlayerNotFound));

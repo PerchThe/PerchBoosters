@@ -8,6 +8,6 @@ commands:
   perchboosters:
     description: "Booster Plugin"
     permission: "perchboosters.use"
-    usage: "/<command> [reset | reload] <player>"
+    usage: "/<command> [check|reset|reload] <player> [first|monthly|all] [month] [year]"
     aliases:
       - pb

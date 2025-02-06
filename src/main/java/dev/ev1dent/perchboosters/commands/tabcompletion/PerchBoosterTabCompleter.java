@@ -25,10 +25,22 @@ public class PerchBoosterTabCompleter implements TabCompleter {
                 else return null;
             }
             case 3 ->{
-                if(args[0].equalsIgnoreCase("reload")) return null;
-                StringUtil.copyPartialMatches(args[args.length - 1], Arrays.asList("first", "monthly", "all"), completions);
-                Collections.sort(completions);
-                return completions;
+                switch (args[0].toLowerCase()) {
+                    case "reload" -> {
+                        return null;
+                    }
+                    case "check" -> {
+                        StringUtil.copyPartialMatches(args[args.length - 1], Arrays.asList("first", "monthly"), completions);
+                        Collections.sort(completions);
+                        return completions;
+                    }
+                    case "reset" -> {
+                        StringUtil.copyPartialMatches(args[args.length - 1], Arrays.asList("first", "monthly", "all"), completions);
+                        Collections.sort(completions);
+                        return completions;
+                    }
+
+                }
             }
             case 4 -> {
                 if(args[0].equalsIgnoreCase("check") && args[2].equalsIgnoreCase("monthly")){

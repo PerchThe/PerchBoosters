@@ -21,10 +21,12 @@ public final class BoosterPlugin extends JavaPlugin {
 
     public String boosterGroup;
 
-    public List<String> firstBoostCommands;
-    public List<String> returningBoostCommands;
+    public List<String> firstBoostCommands, returningBoostCommands;
 
     public boolean debugEnabled;
+
+    // messages
+    public String messagesReloadedConfig, messagesPlayerNotFound, messagesResetMonthly, messagesResetFirst, prefix, messagesResetAll, messagesDefaultMessage,messagesCheckMonthly, messagesExistingBooster;
 
     @Override
     public void onEnable() {

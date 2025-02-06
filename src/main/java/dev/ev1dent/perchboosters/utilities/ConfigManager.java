@@ -22,6 +22,18 @@ public class ConfigManager {
         boosterPlugin().returningBoostCommands = config.getStringList("returning-boost-commands");
 
         boosterPlugin().debugEnabled = config.getBoolean("DEBUG");
+
+        // messages
+        boosterPlugin().prefix = config.getString("messages.prefix");
+        boosterPlugin().messagesReloadedConfig = boosterPlugin().prefix + config.getString("messages.reloaded-config");
+        boosterPlugin().messagesPlayerNotFound = boosterPlugin().prefix + config.getString("messages.player-not-found");
+        boosterPlugin().messagesResetMonthly = boosterPlugin().prefix + config.getString("messages.reset-monthly");
+        boosterPlugin().messagesResetFirst = boosterPlugin().prefix + config.getString("messages.reset-first");
+        boosterPlugin().messagesResetAll = boosterPlugin().prefix + config.getString("messages.reset-all");
+        boosterPlugin().messagesCheckMonthly = boosterPlugin().prefix + config.getString("messages.check-monthly");
+        boosterPlugin().messagesExistingBooster = boosterPlugin().prefix + config.getString("messages.existing-booster");
+        boosterPlugin().messagesDefaultMessage = boosterPlugin().prefix + config.getString("messages.default-message");
+
     }
 
     private void copyDefaults(){

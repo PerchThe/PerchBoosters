@@ -9,3 +9,5 @@ commands:
     description: "Booster Plugin"
     permission: "perchboosters.use"
     usage: "/<command> [reset | reload] <player>"
+    aliases:
+      - pb

@@ -30,44 +30,47 @@ public class PerchBooster implements CommandExecutor {
         switch (args[0].toLowerCase()){
             case "reload" -> {
                 configManager.loadConfig();
-                sender.sendMessage(Utils.formatMM("<green>Reloaded config"));
+                sender.sendMessage(Utils.formatMM(boosterPlugin().messagesReloadedConfig));
                 return true;
             }
             case "reset" -> {
                 if(args.length < 2) return true;
                 Player player = Bukkit.getPlayer(args[1]);
                 if(player == null) {
-                    sender.sendMessage(Utils.formatMM("<red>Player not found"));
+                    sender.sendMessage(Utils.formatMM(boosterPlugin().messagesPlayerNotFound));
                     return true;
                 }
                 switch (args[2].toLowerCase()){
-                    case "month" -> {
+                    case "monthly" -> {
                         PersistentDataContainer container = player.getPersistentDataContainer();
                         container.remove(boosterPlugin().existingBooster);
-                        sender.sendMessage(Utils.formatMM("<green>Monthly Claim has been removed"));
+                        String s = boosterPlugin().messagesResetMonthly;
+                        sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName())));
                     }
                     case "first" -> {
                         PersistentDataContainer container = player.getPersistentDataContainer();
                         container.remove(boosterPlugin().monthlyKey);
-                        sender.sendMessage(Utils.formatMM("<green>First Claim has been removed"));
+                        String s = boosterPlugin().messagesResetFirst;
+                        sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName())));
                     }
                     case "all" ->{
                         PersistentDataContainer container = player.getPersistentDataContainer();
                         container.remove(boosterPlugin().existingBooster);
                         container.remove(boosterPlugin().monthlyKey);
-                        sender.sendMessage(Utils.formatMM("<green>All Reward claims have been reset"));
+                        String s = boosterPlugin().messagesResetAll;
+                        sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName())));
                     }
                     default -> {
-                        sender.sendMessage(Utils.formatMM("<red>Unknown Flag: " + args[2]));
+                        String s = boosterPlugin().messagesDefaultMessage;
+                        sender.sendMessage(Utils.formatMM(s.replace("{0}", args[0])));
                     }
                 }
-                
             }
             case "check" -> {
                 if(args.length < 3) return false;
                 Player player = Bukkit.getPlayer(args[1]);
                 if(player == null) {
-                    sender.sendMessage(Utils.formatMM("<red>Player not found"));
+                    sender.sendMessage(Utils.formatMM(boosterPlugin().messagesPlayerNotFound));
                     return true;
                 }
                 PersistentDataContainer container = player.getPersistentDataContainer();
@@ -75,24 +78,30 @@ public class PerchBooster implements CommandExecutor {
                     case "monthly" -> {
                         if(args.length < 5) return false;
                         String month = args[3], year = args[4], key = month + "-" + year;
+                        String s = boosterPlugin().messagesCheckMonthly;
                         if(container.has(new NamespacedKey(boosterPlugin(), key.toLowerCase()), PersistentDataType.STRING)) {
-                            sender.sendMessage(Utils.formatMM("<yellow> " + player.getName() + " <green>has received their rewards for " + month + " " + year));
+                            sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName()).replace("{1}", "").replace("{2}", month).replace("{3}", year)));
                             return true;
                         }
                         else {
-                            sender.sendMessage(Utils.formatMM("<yellow> " + player.getName() + " <green>has <red>not</red> received their rewards for " + month + " " + year));
+                            sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName()).replace("{1}", "<red>not</red> ").replace("{2}", month).replace("{3}", year)));
                         }
 
                     }
                     case "first" -> {
+                        String s = boosterPlugin().messagesExistingBooster;
                         if(container.has(boosterPlugin().existingBooster, PersistentDataType.STRING)) {
-                            sender.sendMessage(Utils.formatMM("<yellow> " + player.getName() + " <green>Is an existing booster"));
+                            sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName()).replace("{1}", "")));
                             return true;
-                        } else sender.sendMessage(Utils.formatMM("<yellow> " + player.getName() + " <green>Is <red>not</red> an existing booster"));
+                        } else {
+                            sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName()).replace("{1}", "<red>not</red> an ")));
+                        }
                     }
                 }
-
-
+            }
+            default -> {
+                String s = boosterPlugin().messagesDefaultMessage;
+                sender.sendMessage(Utils.formatMM(s.replace("{0}", args[0])));
             }
         }
         return true;

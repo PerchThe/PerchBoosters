@@ -1,13 +1,15 @@
-name: PerchBoosters
+name: PerchRewards
 version: '${version}'
-main: dev.ev1dent.perchboosters.BoosterPlugin
+main: dev.ev1dent.perchrewards.RewardPlugin
 api-version: '1.21'
 depends:
   - LuckPerms
 commands:
-  perchboosters:
-    description: "Booster Plugin"
-    permission: "perchboosters.use"
+  perchrewards:
+    description: "Rewards Plugin"
+    permission: "perchrewards.use"
     usage: "/<command> [check|reset|reload] <player> [first|monthly|all] [month] [year]"
     aliases:
+      - pr
       - pb
+      - prp

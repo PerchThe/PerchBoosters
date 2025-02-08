@@ -1,4 +1,4 @@
-package dev.ev1dent.perchboosters.commands.tabcompletion;
+package dev.ev1dent.perchrewards.commands.tabcompletion;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class PerchBoosterTabCompleter implements TabCompleter {
+public class PerchRewardsTabCompleter implements TabCompleter {
 
     @Override
     public @Nullable List<String> onTabComplete( CommandSender sender,  Command command,  String label,  String[] args) {

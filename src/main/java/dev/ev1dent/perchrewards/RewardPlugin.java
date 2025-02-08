@@ -1,9 +1,9 @@
-package dev.ev1dent.perchboosters;
+package dev.ev1dent.perchrewards;
 
-import dev.ev1dent.perchboosters.commands.PerchBooster;
-import dev.ev1dent.perchboosters.commands.tabcompletion.PerchBoosterTabCompleter;
-import dev.ev1dent.perchboosters.listeners.PlayerJoinListener;
-import dev.ev1dent.perchboosters.utilities.ConfigManager;
+import dev.ev1dent.perchrewards.commands.PerchRewards;
+import dev.ev1dent.perchrewards.commands.tabcompletion.PerchRewardsTabCompleter;
+import dev.ev1dent.perchrewards.listeners.PlayerJoinListener;
+import dev.ev1dent.perchrewards.utilities.ConfigManager;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.time.LocalDate;
 import java.util.List;
 
-public final class BoosterPlugin extends JavaPlugin {
+public final class RewardPlugin extends JavaPlugin {
 
     public LuckPerms luckPerms;
     ConfigManager configManager = new ConfigManager();
@@ -38,8 +38,8 @@ public final class BoosterPlugin extends JavaPlugin {
     }
 
     private void registerCommands(){
-        this.getCommand("perchboosters").setExecutor(new PerchBooster());
-        this.getCommand("perchboosters").setTabCompleter(new PerchBoosterTabCompleter());
+        this.getCommand("perchrewards").setExecutor(new PerchRewards());
+        this.getCommand("perchrewards").setTabCompleter(new PerchRewardsTabCompleter());
     }
 
     private void registerEvents(){

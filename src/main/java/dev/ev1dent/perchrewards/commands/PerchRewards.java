@@ -43,13 +43,13 @@ public class PerchRewards implements CommandExecutor {
                 switch (args[2].toLowerCase()){
                     case "monthly" -> {
                         PersistentDataContainer container = player.getPersistentDataContainer();
-                        container.remove(rewardPlugin().existingBooster);
+                        container.remove(rewardPlugin().monthlyKey);
                         String s = rewardPlugin().messagesResetMonthly;
                         sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName())));
                     }
                     case "first" -> {
                         PersistentDataContainer container = player.getPersistentDataContainer();
-                        container.remove(rewardPlugin().monthlyKey);
+                        container.remove(rewardPlugin().existingBooster);
                         String s = rewardPlugin().messagesResetFirst;
                         sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName())));
                     }

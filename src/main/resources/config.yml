@@ -15,7 +15,7 @@ messages:
   prefix: "<gold>[<yellow>PerchBoosters</yellow>] "
   reloaded-config: "<yellow>The configuration has been reloaded!"
   player-not-found: "<red>Player Not Found"
-  reset-monthly: "<yellow>Monthly boost claim has been removed for {1}."
+  reset-monthly: "<yellow>Monthly boost claim has been removed for {0}."
   reset-first: "<yellow>First Boost Claim has been removed for {0}."
   reset-all: "<yellow>All Boost Claims have been removed for {0}."
   check-monthly: "<yellow>{0} has {1}received their rewards for {2} {3}"

@@ -34,11 +34,11 @@ public class PlayerJoinListener implements Listener {
     private void processFirstBoost(PersistentDataContainer container, Player player) {
 
         // Already received reward for current month, returning
-        Utils.getLogger("Already Claimed for Month: " + container.has(rewardPlugin().monthlyKey, PersistentDataType.STRING));
-        if(container.has(rewardPlugin().monthlyKey, PersistentDataType.STRING)) return;
+        Utils.getLogger("Existing Booster: " + container.has(rewardPlugin().existingBooster, PersistentDataType.STRING));
+        if(container.has(rewardPlugin().existingBooster, PersistentDataType.STRING)) return;
 
-        // if they didnt, they did now.
-        container.set(rewardPlugin().monthlyKey, PersistentDataType.STRING, "true");
+        Utils.getLogger("Setting existingBooster to true");
+        container.set(rewardPlugin().existingBooster, PersistentDataType.STRING, "true");
 
         for (String command : rewardPlugin().firstBoostCommands){
             Utils.getLogger("First Boost Commands: " + command.replace("{PLAYER}", player.getName()));
@@ -49,11 +49,11 @@ public class PlayerJoinListener implements Listener {
     private void processReturningBooster(PersistentDataContainer container, Player player) {
 
         // Already received reward for current month, returning
-        Utils.getLogger("Existing Booster: " + container.has(rewardPlugin().existingBooster, PersistentDataType.STRING));
-        if(container.has(rewardPlugin().existingBooster, PersistentDataType.STRING)) return;
+        Utils.getLogger("Already Claimed for Month: " + container.has(rewardPlugin().monthlyKey, PersistentDataType.STRING));
+        if(container.has(rewardPlugin().monthlyKey, PersistentDataType.STRING)) return;
 
         // if they didnt, they did now.
-        container.set(rewardPlugin().existingBooster, PersistentDataType.STRING, "true");
+        container.set(rewardPlugin().monthlyKey, PersistentDataType.STRING, "true");
 
         for (String command : rewardPlugin().returningBoostCommands){
             Utils.getLogger("Returning Boost Commands: " + command.replace("{PLAYER}", player.getName()));

@@ -34,10 +34,11 @@ public class PlayerJoinListener implements Listener {
 
     private void processFirstBoost(PersistentDataContainer container, Player player) {
 
-        // Already received reward for current month, returning
+        // Already received first reward, returning
         Utils.getLogger("Existing Booster: " + container.has(boosterPlugin().existingBooster, PersistentDataType.STRING));
         if(container.has(boosterPlugin().existingBooster, PersistentDataType.STRING)) return;
 
+        // if they didn't, they did now.
         Utils.getLogger("Setting existingBooster to true");
         container.set(boosterPlugin().existingBooster, PersistentDataType.STRING, "true");
 

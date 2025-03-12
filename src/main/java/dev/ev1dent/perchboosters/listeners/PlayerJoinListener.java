@@ -21,6 +21,7 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
+        if(!event.getPlayer().hasPermission("perchboosters.receive")) return;
         Utils.getLogger(event.getPlayer().getName() + " joined the game");
         Player player = event.getPlayer();
         Utils.getLogger("Is Booster: " + LPHook.isBooster(player, boosterPlugin().boosterGroup));

@@ -1,6 +1,6 @@
-package dev.ev1dent.perchrewards.utilities;
+package dev.ev1dent.perchboosters.utilities;
 
-import dev.ev1dent.perchrewards.RewardPlugin;
+import dev.ev1dent.perchboosters.BoosterPlugin;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -9,8 +9,8 @@ import java.util.logging.Level;
 
 public class Utils {
 
-    private RewardPlugin rewardPlugin() {
-        return RewardPlugin.getPlugin(RewardPlugin.class);
+    private BoosterPlugin boosterPlugin() {
+        return BoosterPlugin.getPlugin(BoosterPlugin.class);
     }
 
 
@@ -19,7 +19,7 @@ public class Utils {
     }
 
     public void getLogger(String s) {
-        if(!rewardPlugin().debugEnabled) return;
-        rewardPlugin().getLogger().log(Level.INFO, s);
+        if(!boosterPlugin().debugEnabled) return;
+        boosterPlugin().getLogger().log(Level.INFO, s);
     }
 }

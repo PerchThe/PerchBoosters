@@ -28,7 +28,6 @@ public class Utils {
         for (String command : commands) {
             if(command.startsWith("[message]")) {
                 player.sendMessage(formatMM(command.replace("[message] ", "")));
-                return;
             }
             TaskChain.newChain().add(new TaskChain.GenericTask() {
                 @Override

@@ -1,18 +1,24 @@
-# Define the group you want to check for on the 1st of every month
+# Define the group you want to check
 booster-group: "booster"
 
 # commands to be executed on the first boost - (use {PLAYER} for a player argument)
 # if your commands contain '' or "", use the inverse (for "" use ' around command)
 first-boost-commands:
-  - "tell {PLAYER} first boost"
+  - "[message] <yellow>Thank you for boosting The Perch on Discord!!"
+  - "[message] <yellow>Here's a special gift as a Thank You for your first boost!"
+  - "crazyvouchers:vouchers give Keyall_tag 1 {PLAYER}"
+
 
 # commands to be executed on every boost, including first - (use {PLAYER} for a player argument)
 # if your commands contain '' or "", use the inverse (for "" use ' around command)
 returning-boost-commands:
-  - "tell {PLAYER} returning boosts"
+  - "[message] <green>Thank you for being an active discord booster!"
+  - "perchcrates key give {PLAYER} tag 1"
 
 first-link-commands:
-  - "tell {PLAYER} adjustbonusclaimblocks {PLAYER} 500"
+  - "[message] <yellow>Thank you for linking your accounts!"
+  - "[message] <yellow>Here is 500 claimblocks as a special gift!"
+  - "adjustbonusclaimblocks {PLAYER} 500"
 
 messages:
   prefix: "<gold>[<yellow>PerchBoosters</yellow>] "
@@ -23,7 +29,6 @@ messages:
   reset-all: "<yellow>All Boost Claims have been removed for {0}."
   check-monthly: "<yellow>{0} has {1}received their rewards for {2} {3}"
   existing-booster: "<yellow>{0} is {1}existing booster"
-  default-message: "<red>Unknown Argument: {0}"
   reset-linked: "<yellow>Reset linked status for {0}"
   check-linked: "<yellow>{0} has{1} linked, and received their rewards"
 

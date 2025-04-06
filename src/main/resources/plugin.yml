@@ -5,13 +5,3 @@ api-version: '1.21'
 depends:
   - LuckPerms
   - DiscordSRV
-commands:
-  perchrewards:
-    description: "Rewards Plugin"
-    permission: "perchrewards.use"
-    usage: "/<command> [check|reset|reload] <player> [first|monthly|all] [month] [year]"
-    aliases:
-      - perchboosters
-      - pr
-      - pb
-      - prp

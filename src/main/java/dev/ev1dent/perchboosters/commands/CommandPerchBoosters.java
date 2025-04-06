@@ -1,125 +1,132 @@
 package dev.ev1dent.perchboosters.commands;
 
+
+import com.mojang.brigadier.Command;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.suggestion.SuggestionProvider;
+import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.ev1dent.perchboosters.BoosterPlugin;
 import dev.ev1dent.perchboosters.utilities.ConfigManager;
 import dev.ev1dent.perchboosters.utilities.Utils;
-import org.bukkit.Bukkit;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
+import io.papermc.paper.command.brigadier.Commands;
+import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
+import io.papermc.paper.command.brigadier.argument.resolvers.selector.PlayerSelectorArgumentResolver;
 import org.bukkit.NamespacedKey;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NullMarked;
 
-public class CommandPerchBoosters implements CommandExecutor {
+import java.util.List;
 
-    ConfigManager configManager = new ConfigManager();
-    Utils Utils = new Utils();
+@SuppressWarnings({"UnstableApiUsage", "SameReturnValue"})
+@NullMarked
+public class CommandPerchBoosters {
+
+    private final ConfigManager configManager = new ConfigManager();
+    private final Utils Utils = new Utils();
 
     private BoosterPlugin boosterPlugin() {
         return BoosterPlugin.getPlugin(BoosterPlugin.class);
     }
 
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(args.length == 0) {
-            return false;
-        }
-        switch (args[0].toLowerCase()){
-            case "reload" -> {
-                configManager.loadConfig();
-                sender.sendMessage(Utils.formatMM(boosterPlugin().messagesReloadedConfig));
-                return true;
-            }
-            case "reset" -> {
-                if(args.length < 2) return false;
-                Player player = Bukkit.getPlayer(args[1]);
-                if(player == null) {
-                    sender.sendMessage(Utils.formatMM(boosterPlugin().messagesPlayerNotFound));
-                    return true;
-                }
-                switch (args[2].toLowerCase()){
-                    case "monthly" -> {
-                        PersistentDataContainer container = player.getPersistentDataContainer();
-                        container.remove(boosterPlugin().monthlyKey);
-                        String s = boosterPlugin().messagesResetMonthly;
-                        sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName())));
-                    }
-                    case "first" -> {
-                        PersistentDataContainer container = player.getPersistentDataContainer();
-                        container.remove(boosterPlugin().existingBooster);
-                        String s = boosterPlugin().messagesResetFirst;
-                        sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName())));
-                    }
-                    case "linked" -> {
-                        PersistentDataContainer container = player.getPersistentDataContainer();
-                        container.remove(boosterPlugin().alreadyLinked);
-                        String s = boosterPlugin().messagesResetLinked;
-                        sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName())));
-                    }
-                    case "all" ->{
-                        PersistentDataContainer container = player.getPersistentDataContainer();
-                        container.remove(boosterPlugin().existingBooster);
-                        container.remove(boosterPlugin().monthlyKey);
-                        container.remove(boosterPlugin().alreadyLinked);
-                        String s = boosterPlugin().messagesResetAll;
-                        sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName())));
-                    }
-                    default -> {
-                        String s = boosterPlugin().messagesDefaultMessage;
-                        sender.sendMessage(Utils.formatMM(s.replace("{0}", args[0])));
-                    }
-                }
-            }
-            case "check" -> {
-                if(args.length < 3) return false;
-                Player player = Bukkit.getPlayer(args[1]);
-                if(player == null) {
-                    sender.sendMessage(Utils.formatMM(boosterPlugin().messagesPlayerNotFound));
-                    return true;
-                }
-                PersistentDataContainer container = player.getPersistentDataContainer();
-                switch (args[2].toLowerCase()){
-                    case "monthly" -> {
-                        if(args.length < 5) return false;
-                        String month = args[3], year = args[4], key = month + "-" + year;
-                        String s = boosterPlugin().messagesCheckMonthly;
-                        if(container.has(new NamespacedKey(boosterPlugin(), key.toLowerCase()), PersistentDataType.STRING)) {
-                            sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName()).replace("{1}", "").replace("{2}", month).replace("{3}", year)));
-                            return true;
-                        }
-                        else {
-                            sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName()).replace("{1}", "<red>not</red> ").replace("{2}", month).replace("{3}", year)));
-                        }
+    private final List<String> yearSuggestions = List.of("2024", "2025", "2026", "2027", "2028", "2029");
+    private final SuggestionProvider<CommandSourceStack> yearSuggestionsProvider = (ctx, builder) -> {
+        yearSuggestions.stream()
+                .filter(amount -> amount.startsWith(builder.getRemaining()))
+                .forEach(builder::suggest);
+        return builder.buildFuture();
+    };
+    private final List<String> monthSuggestions = List.of("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+    private final SuggestionProvider<CommandSourceStack> monthSuggestionsProvider = (ctx, builder) -> {
+        monthSuggestions.stream()
+                .filter(amount -> amount.startsWith(builder.getRemaining()))
+                .forEach(builder::suggest);
+        return builder.buildFuture();
+    };
 
-                    }
-                    case "first" -> {
-                        String s = boosterPlugin().messagesExistingBooster;
-                        if(container.has(boosterPlugin().existingBooster, PersistentDataType.STRING)) {
-                            sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName()).replace("{1}", "")));
-                            return true;
-                        } else {
-                            sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName()).replace("{1}", "<red>not</red> an ")));
-                        }
-                    }
-                    case "linked" -> {
-                        String s = boosterPlugin().messagesCheckLinked;
-                        if(container.has(boosterPlugin().alreadyLinked, PersistentDataType.BOOLEAN)) {
-                            sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName()).replace("{1}", "")));
-                            return true;
-                        } else {
-                            sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName()).replace("{1}", " <red>not</red>")));
-                        }
-                    }
-                }
-            }
-            default -> {
-                String s = boosterPlugin().messagesDefaultMessage;
-                sender.sendMessage(Utils.formatMM(s.replace("{0}", args[0])));
-            }
-        }
-        return true;
+    public LiteralCommandNode<CommandSourceStack> constructCommand() {
+        return Commands.literal("perchboosters")
+                .requires(source -> source.getSender().hasPermission("perchboosters.use"))
+                .then(Commands.literal("reload")
+                        .executes(ctx -> {
+                            CommandSender sender = ctx.getSource().getSender();
+                            configManager.loadConfig();
+                            sender.sendMessage(Utils.formatMM("<green>Reloading Config..."));
+                            return Command.SINGLE_SUCCESS;
+                        })
+                )
+
+                .then(Commands.literal("reset")
+                        .then(Commands.argument("player", ArgumentTypes.player())
+                                .then(Commands.literal("first")
+                                        .executes(this::resetFirst)
+                                )
+                                .then(Commands.literal("monthly")
+                                        .then(Commands.argument("month", StringArgumentType.string())
+                                                .suggests(monthSuggestionsProvider)
+                                                .then(Commands.argument("year", IntegerArgumentType.integer())
+                                                        .suggests(yearSuggestionsProvider)
+                                                        .executes(this::resetMonthly)
+                                                )
+                                        )
+                                )
+                                .then(Commands.literal("linked")
+                                        .executes(this::resetLinked)
+                                )
+                        )
+                ).build();
     }
+
+    public int resetFirst(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+        final CommandSender sender = ctx.getSource().getSender();
+        final Player player = ctx.getArgument("player", PlayerSelectorArgumentResolver.class).resolve(ctx.getSource()).getFirst();
+        final PersistentDataContainer dataContainer = player.getPersistentDataContainer();
+        if(dataContainer.has(boosterPlugin().existingBooster)) {
+            sender.sendMessage(Utils.formatMM(boosterPlugin().messagesResetFirst.replace("{0}", player.getName())));
+            dataContainer.remove(boosterPlugin().existingBooster);
+            return Command.SINGLE_SUCCESS;
+        } else {
+            sender.sendMessage(Utils.formatMM("<red>" + player.getName() + " has not claimed booster rewards!"));
+        }
+        return Command.SINGLE_SUCCESS;
+    }
+
+    public int resetMonthly(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+        final CommandSender sender = ctx.getSource().getSender();
+        final Player player = ctx.getArgument("player", PlayerSelectorArgumentResolver.class).resolve(ctx.getSource()).getFirst();
+        final PersistentDataContainer dataContainer = player.getPersistentDataContainer();
+        final String month = ctx.getArgument("month", String.class);
+        final Integer year = ctx.getArgument("year", Integer.class);
+        NamespacedKey newKey = new NamespacedKey(boosterPlugin(), month + "-" + year);
+        if(dataContainer.has(newKey)) {
+            sender.sendMessage(Utils.formatMM(boosterPlugin().messagesResetMonthly.replace("{0}", player.getName())));
+            dataContainer.remove(newKey);
+            return Command.SINGLE_SUCCESS;
+        } else {
+            sender.sendMessage(Utils.formatMM("<red>" + player.getName() + " has not claimed rewards for " + month + " " + year));
+        }
+        return Command.SINGLE_SUCCESS;
+    }
+
+    public int resetLinked(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+        final CommandSender sender = ctx.getSource().getSender();
+        final Player player = ctx.getArgument("player", PlayerSelectorArgumentResolver.class).resolve(ctx.getSource()).getFirst();
+        final PersistentDataContainer dataContainer = player.getPersistentDataContainer();
+        if(dataContainer.has(boosterPlugin().alreadyLinked, PersistentDataType.BOOLEAN)) {
+            sender.sendMessage(Utils.formatMM(boosterPlugin().messagesResetLinked.replace("{0}", player.getName())));
+            dataContainer.remove(boosterPlugin().alreadyLinked);
+            return Command.SINGLE_SUCCESS;
+        } else {
+            sender.sendMessage(Utils.formatMM("<red>" + player.getName() + " has not linked!"));
+        }
+        return Command.SINGLE_SUCCESS;
+    }
+
+
 }

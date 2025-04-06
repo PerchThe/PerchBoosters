@@ -53,10 +53,17 @@ public class CommandPerchBoosters implements CommandExecutor {
                         String s = boosterPlugin().messagesResetFirst;
                         sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName())));
                     }
+                    case "linked" -> {
+                        PersistentDataContainer container = player.getPersistentDataContainer();
+                        container.remove(boosterPlugin().alreadyLinked);
+                        String s = boosterPlugin().messagesResetLinked;
+                        sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName())));
+                    }
                     case "all" ->{
                         PersistentDataContainer container = player.getPersistentDataContainer();
                         container.remove(boosterPlugin().existingBooster);
                         container.remove(boosterPlugin().monthlyKey);
+                        container.remove(boosterPlugin().alreadyLinked);
                         String s = boosterPlugin().messagesResetAll;
                         sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName())));
                     }
@@ -95,6 +102,15 @@ public class CommandPerchBoosters implements CommandExecutor {
                             return true;
                         } else {
                             sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName()).replace("{1}", "<red>not</red> an ")));
+                        }
+                    }
+                    case "linked" -> {
+                        String s = boosterPlugin().messagesCheckLinked;
+                        if(container.has(boosterPlugin().alreadyLinked, PersistentDataType.BOOLEAN)) {
+                            sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName()).replace("{1}", "")));
+                            return true;
+                        } else {
+                            sender.sendMessage(Utils.formatMM(s.replace("{0}", player.getName()).replace("{1}", " <red>not</red>")));
                         }
                     }
                 }

@@ -31,7 +31,7 @@ public final class BoosterPlugin extends JavaPlugin {
     public boolean debugEnabled;
 
     // messages
-    public String messagesReloadedConfig, messagesPlayerNotFound, messagesResetMonthly, messagesResetFirst, prefix, messagesResetAll, messagesDefaultMessage,messagesCheckMonthly, messagesExistingBooster;
+    public String messagesReloadedConfig, messagesPlayerNotFound, messagesResetMonthly, messagesResetFirst, prefix, messagesResetAll, messagesDefaultMessage,messagesCheckMonthly, messagesExistingBooster, messagesCheckLinked, messagesResetLinked;
 
     @Override
     public void onEnable() {

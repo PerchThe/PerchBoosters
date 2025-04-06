@@ -30,12 +30,12 @@ public class TabCompleterPerchBoosters implements TabCompleter {
                         return null;
                     }
                     case "check" -> {
-                        StringUtil.copyPartialMatches(args[args.length - 1], Arrays.asList("first", "monthly"), completions);
+                        StringUtil.copyPartialMatches(args[args.length - 1], Arrays.asList("first", "monthly", "linked"), completions);
                         Collections.sort(completions);
                         return completions;
                     }
                     case "reset" -> {
-                        StringUtil.copyPartialMatches(args[args.length - 1], Arrays.asList("first", "monthly", "all"), completions);
+                        StringUtil.copyPartialMatches(args[args.length - 1], Arrays.asList("first", "monthly", "all", "linked"), completions);
                         Collections.sort(completions);
                         return completions;
                     }

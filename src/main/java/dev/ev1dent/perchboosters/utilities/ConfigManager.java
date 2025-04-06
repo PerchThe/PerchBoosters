@@ -34,6 +34,8 @@ public class ConfigManager {
         boosterPlugin().messagesCheckMonthly = boosterPlugin().prefix + config.getString("messages.check-monthly");
         boosterPlugin().messagesExistingBooster = boosterPlugin().prefix + config.getString("messages.existing-booster");
         boosterPlugin().messagesDefaultMessage = boosterPlugin().prefix + config.getString("messages.default-message");
+        boosterPlugin().messagesResetLinked = boosterPlugin().prefix + config.getString("messages.reset-linked");
+        boosterPlugin().messagesCheckLinked = boosterPlugin().prefix + config.getString("messages.check-linked");
 
     }
 

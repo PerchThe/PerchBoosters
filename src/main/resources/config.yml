@@ -24,6 +24,7 @@ messages:
   check-monthly: "<yellow>{0} has {1}received their rewards for {2} {3}"
   existing-booster: "<yellow>{0} is {1}existing booster"
   default-message: "<red>Unknown Argument: {0}"
-  linked-accounts: "<yellow>Thanks for linking your accounts! You have been given 500 Claimblocks."
+  reset-linked: "<yellow>Reset linked status for {0}"
+  check-linked: "<yellow>{0} has{1} linked, and received their rewards"
 
 DEBUG: false

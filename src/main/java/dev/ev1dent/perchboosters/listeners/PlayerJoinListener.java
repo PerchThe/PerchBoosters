@@ -42,10 +42,7 @@ public class PlayerJoinListener implements Listener {
         Utils.getLogger("Setting existingBooster to true");
         container.set(boosterPlugin().existingBooster, PersistentDataType.STRING, "true");
 
-        for (String command : boosterPlugin().firstBoostCommands){
-            Utils.getLogger("First Boost Commands: " + command.replace("{PLAYER}", player.getName()));
-            handleCommands(command, player);
-        }
+        Utils.handleCommands(player, boosterPlugin().firstBoostCommands);
     }
 
     private void processReturningBooster(PersistentDataContainer container, Player player) {
@@ -57,18 +54,7 @@ public class PlayerJoinListener implements Listener {
         // if they didnt, they did now.
         container.set(boosterPlugin().monthlyKey, PersistentDataType.STRING, "true");
 
-        for (String command : boosterPlugin().returningBoostCommands){
-            Utils.getLogger("Returning Boost Commands: " + command.replace("{PLAYER}", player.getName()));
-            handleCommands(command, player);
-        }
-    }
-
-    private void handleCommands(String command, Player player) {
-        if(command.startsWith("[message]")) {
-            player.sendMessage(Utils.formatMM(command.replace("[message] ", "")));
-            return;
-        }
-        boosterPlugin().getServer().dispatchCommand(boosterPlugin().getServer().getConsoleSender(), command.replace("{PLAYER}", player.getName()));
+        Utils.handleCommands(player, boosterPlugin().returningBoostCommands);
     }
 }
 

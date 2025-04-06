@@ -4,6 +4,7 @@ main: dev.ev1dent.perchboosters.BoosterPlugin
 api-version: '1.21'
 depends:
   - LuckPerms
+  - DiscordSRV
 commands:
   perchrewards:
     description: "Rewards Plugin"

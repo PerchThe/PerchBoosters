@@ -11,6 +11,9 @@ first-boost-commands:
 returning-boost-commands:
   - "tell {PLAYER} returning boosts"
 
+first-link-commands:
+  - "tell {PLAYER} adjustbonusclaimblocks {PLAYER} 500"
+
 messages:
   prefix: "<gold>[<yellow>PerchBoosters</yellow>] "
   reloaded-config: "<yellow>The configuration has been reloaded!"
@@ -21,5 +24,6 @@ messages:
   check-monthly: "<yellow>{0} has {1}received their rewards for {2} {3}"
   existing-booster: "<yellow>{0} is {1}existing booster"
   default-message: "<red>Unknown Argument: {0}"
+  linked-accounts: "<yellow>Thanks for linking your accounts! You have been given 500 Claimblocks."
 
 DEBUG: false

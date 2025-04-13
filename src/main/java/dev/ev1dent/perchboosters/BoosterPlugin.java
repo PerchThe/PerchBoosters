@@ -35,7 +35,7 @@ public final class BoosterPlugin extends JavaPlugin {
     @Override
     public void onLoad() {
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS,
-                event -> event.registrar().register(new CommandPerchBoosters().constructCommand(), "booster command")
+                event -> event.registrar().register(new CommandPerchBoosters().constructCommand(), "booster command", List.of(CommandPerchBoosters.CommandAliases))
         );
     }
 
